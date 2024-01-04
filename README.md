@@ -1,38 +1,31 @@
-# Simple Memory Design and Simulation using VHDL in Xilinx
+# Memory Module (memory.vhdl)
 
 ## Overview
 
-This GitHub repository contains VHDL code and simulation files to help you create and test memory modules using Xilinx tools. Memory is like a digital storage space, and this project offers an easy way to design and simulate different types of memory using VHDL.
+The `memory` module is a versatile VHDL component providing a dual-port memory structure. Designed for synchronous operation, it accommodates read (`re`) and write (`we`) operations on two distinct ports (`A` and `B`). The memory has a capacity of 256 locations, each capable of storing an 8-bit data vector.
 
-## What's Inside?
+## Functionality
 
-### 1. `ram.vhdl`
+- **Synchronous Operation:** The module operates synchronously with the rising edge of the clock signal (`clk`).
+  
+- **Addressing:** Memory access is facilitated through address vectors (`addr_a` and `addr_b`), allowing for targeted read and write operations.
 
-This file is like a blueprint for a type of memory called Random Access Memory (RAM). RAM is a temporary storage that allows quick reading and writing of data. It's like a fast, accessible shelf where you can put and take things as needed.
+- **Data Handling:** Data vectors (`data_a` and `data_b`) manage the information to be written into the memory.
 
-### 2. `rom.vhdl`
+- **Control Signals:** Write Enables (`we_a` and `we_b`) and Read Enables (`re_a` and `re_b`) govern write and read operations for the respective ports.
 
-Here, we have another file for Read-Only Memory (ROM). Unlike RAM, ROM is like a permanent bookshelf. You can read data from it, but you can't change what's stored there. It's perfect for information that doesn't change often.
+- **Output:** Output vectors (`q_a` and `q_b`) provide the data read from the specified memory addresses.
 
-### 3. `sim_ram.tcl` and `sim_rom.tcl`
+## Memory Structure
 
-These are scripts that help set up simulations in Xilinx Vivado. Think of them as instructions for testing our memory modules in a virtual environment before using them in a real project.
+Internally, the module employs an array (`mem_array`) to represent the memory locations. During a rising clock edge, it selectively reads and writes data based on the control signals and addresses provided. The memory initializes with zero values.
 
-## How to Use
+## Usage
 
-1. **Get the Code:** Download or clone this repository to your computer.
-2. **Open Vivado:** If you don't have it, you can download Xilinx Vivado for free.
-3. **Create a New Project:** Use Vivado to set up a new project and add our memory files.
-4. **Run Simulations:** Use the provided scripts to run simulations and see how our memory modules behave.
+Integrate this memory module into VHDL projects requiring dual-port memory functionality. Careful attention to clock synchronization and control signal management is essential for reliable memory operations.
 
-## Customize for Your Needs
+## Customization
 
-Feel free to change the VHDL code to fit your specific requirements. If you need more or less memory, or if you want to store different types of data, you can modify the code accordingly.
+Adapt the module to suit project-specific requirements. Adjust the memory size, data width, or other parameters as needed.
 
-## What to Look For
-
-After running simulations, check the results to make sure our memory modules are working as expected. Ensure that reading and writing data happen correctly.
-
-## Conclusion
-
-This project is like a starter kit for understanding and using memory in digital systems. Memory is a crucial part of computers and electronics, and this resource helps you get hands-on experience with creating and testing different types of memory.
+**Note:** Refer to the source code (`memory.vhdl`) for further details on the module's implementation.
