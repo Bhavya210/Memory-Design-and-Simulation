@@ -1,0 +1,53 @@
+-- Memory Testbench (memory_tb.vhdl)
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity memory_tb is
+end memory_tb;
+
+architecture SIM of memory_tb is
+  signal clk : STD_LOGIC := '0';
+  signal addr_a, data_a, addr_b, data_b : STD_LOGIC_VECTOR(7 downto 0);
+  signal we_a, re_a, we_b, re_b : STD_LOGIC;
+  signal q_a, q_b : STD_LOGIC_VECTOR(7 downto 0);
+
+  component memory
+    Port ( clk : in STD_LOGIC;
+           addr_a : in STD_LOGIC_VECTOR(7 downto 0);
+           data_a : in STD_LOGIC_VECTOR(7 downto 0);
+           we_a : in STD_LOGIC;
+           re_a : in STD_LOGIC;
+           addr_b : in STD_LOGIC_VECTOR(7 downto 0);
+           data_b : in STD_LOGIC_VECTOR(7 downto 0);
+           we_b : in STD_LOGIC;
+           re_b : in STD_LOGIC;
+           q_a : out STD_LOGIC_VECTOR(7 downto 0);
+           q_b : out STD_LOGIC_VECTOR(7 downto 0));
+  end component;
+
+begin
+  uut: memory port map (clk, addr_a, data_a, we_a, re_a, addr_b, data_b, we_b, re_b, q_a, q_b);
+
+  process
+  begin
+    wait for 5 ns;
+    clk <= not clk;
+  end process;
+
+  process
+  begin
+    wait for 10 ns;
+    addr_a <= "00000001";
+    data_a <= "11001100";
+    we_a <= '1';
+    wait for 10 ns;
+    re_a <= '1';
+    wait for 10 ns;
+    addr_b <= "00000100";
+    data_b <= "10101010";
+    we_b <= '1';
+    wait for 10 ns;
+    re_b <= '1';
+    wait;
+  end process;
+end SIM;
